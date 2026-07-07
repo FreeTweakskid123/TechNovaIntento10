@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova | Soluciones Tecnológicas</title>
+    <style>
+        /* Estilos Globales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5; /* Gris claro estilo Facebook */
+            color: #050505;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2b7a78;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .logo span {
+            color: #17252a;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #65676b;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: #2b7a78;
+        }
+
+        /* Vistas (Control de navegación en Menú) */
+        .page-view {
+            display: none; /* Oculto por defecto */
+        }
+
+        .page-view.active {
+            display: block; /* Solo se muestra la vista activa */
+        }
+
+        /* --- VISTA INICIO --- */
+        .hero-section {
+            background-color: #ffffff;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 {
+            font-size: 36px;
+            color: #17252a;
+            margin-bottom: 15px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            color: #65676b;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        .btn-cta {
+            background-color: #1877f2;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-cta:hover {
+            background-color: #166fe5;
+        }
+
+        .about-section {
+            max-width: 1200px;
+            margin: 20px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .about-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .about-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2b7a78;
+            margin-bottom: 12px;
+        }
+
+        .about-card p {
+            font-size: 15px;
+            color: #050505;
+        }
+
+        /* --- VISTA CATÁLOGO --- */
+        .catalog-selector-section {
+            max-width: 1200px;
+            margin: 30px auto 10px auto;
+            padding: 0 20px;
+        }
+
+        .catalog-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #050505;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card-thumb {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .product-card-thumb:hover {
+            transform: translateY(-2px);
+        }
+
+        .product-card-thumb.active {
+            border-color: #1877f2;
+        }
+
+        .thumb-img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            background-color: #fafafa;
+        }
+
+        .thumb-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #050505;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .thumb-price {
+            font-size: 13px;
+            color: #65676b;
+            font-weight: 700;
+        }
+
+        /* Panel Principal Marketplace */
+        .marketplace-container {
+            max-width: 1200px;
+            margin: 10px auto 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+        }
+
+        .product-gallery {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 550px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .product-panel {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+        }
+
+        .product-title {
+            font-size: 24px;
+            color: #050505;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .price {
+            font-size: 22px;
+            color: #1877f2;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #ced0d4;
+            margin: 15px 0;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #050505;
+        }
+
+        .specs-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .specs-list li {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #050505;
+            display: flex;
+        }
+
+        .specs-list strong {
+            width: 120px;
+            color: #65676b;
+            font-weight: 500;
+        }
+
+        .description {
+            color: #050505;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-buy {
+            background-color: #25d366; /* Verde WhatsApp */
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-buy:hover {
+            background-color: #128c7e;
+        }
+
+        /* --- VISTA ALIANZAS --- */
+        .alliances-section {
+            max-width: 1200px;
+            margin: 30px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .alliances-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .alliance-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #e4e6eb;
+        }
+
+        .alliance-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #e8f4f8;
+            color: #2b7a78;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 15px auto;
+        }
+
+        .alliance-card h3 {
+            font-size: 18px;
+            color: #17252a;
+            margin-bottom: 10px;
+        }
+
+        .alliance-card p {
+            font-size: 14px;
+            color: #65676b;
+        }
+
+        /* --- BURBUJA DE MESSENGER (CHATBOT) --- */
+        .chat-widget {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* Botón Circular Flotante */
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff); /* Degradado Messenger */
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.08);
+        }
+
+        .chat-button svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Ventana Emergente del Chat */
+        .chat-container {
+            width: 370px;
+            height: 480px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-container.open {
+            display: flex;
+        }
+
+        /* Cabecera del chat */
+        .chat-header {
+            background-color: #ffffff;
+            padding: 12px 15px;
+            border-bottom: 1px solid #ced0d4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bot-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #2b7a78;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .bot-status-info h2 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #050505;
+        }
+
+        .bot-status-info p {
+            font-size: 11px;
+            color: #65676b;
+        }
+
+        .close-chat-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #65676b;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Área de Mensajes */
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Burbujas de mensajes */
+        .message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .message.bot {
+            background-color: #e4e6eb;
+            color: #050505;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+
+        .message.user {
+            background-color: #0084ff; /* Azul Messenger */
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        /* Input y envío de texto */
+        .chat-input-area {
+            padding: 12px 15px;
+            border-top: 1px solid #ced0d4;
+            background-color: #ffffff;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            background-color: #f0f2f5;
+            border: 1px solid transparent;
+            padding: 10px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            color: #050505;
+        }
+
+        .chat-input:focus {
+            background-color: #ffffff;
+            border-color: #0084ff;
+        }
+
+        .btn-send {
+            background-color: #0084ff;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-send:hover {
+            background-color: #006dd6;
+        }
+
+        /* Responsivo */
+        @media (max-width: 850px) {
+            .marketplace-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 10px auto;
+            }
+            .product-gallery {
+                min-height: auto;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+
+        @media (max-width: 450px) {
+            .chat-container {
+                width: calc(100vw - 40px);
+                height: 400px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="navegarA('inicio')">Tech<span>Nova</span></div>
+        <nav>
+            <a id="nav-inicio" class="active" onclick="navegarA('inicio')">Inicio</a>
+            <a id="nav-catalogo" onclick="navegarA('catalogo')">Catálogo</a>
+            <a id="nav-alianzas" onclick="navegarA('alianzas')">Alianzas</a>
+        </nav>
+    </header>
+
+    <main>
+        
+        <div id="vista-inicio" class="page-view active">
+            <section class="hero-section">
+                <h1>Moda Sostenible con Identidad Digital</h1>
+                <p>Descubre ropa de excelente calidad, conoce su historial de uso real y dale una segunda vida a las prendas.</p>
+                <button class="btn-cta" onclick="navegarA('catalogo')">Ver Catálogo de Prendas</button>
+            </section>
+
+            <section class="about-section">
+                <div class="about-card">
+                    <h2>Sobre Nosotros</h2>
+                    <p>En TechNova combinamos tecnología e innovación para impulsar una moda más sostenible. A través de nuestra plataforma digital, los usuarios pueden explorar prendas reutilizadas, conocer sus características y descubrir alternativas responsables para reducir el impacto ambiental de la industria textil. Nuestro objetivo es demostrar cómo la tecnología puede ayudar a promover el cuidado del medio ambiente y fomentar un consumo más consciente.</p>
+                </div>
+                <div class="about-card">
+                    <h2>Nuestra Propuesta de Valor</h2>
+                    <p>TechNova funciona como un ecosistema interactivo transparente donde cada prenda cuenta una historia. Transformamos el comercio de segunda mano vinculando trazabilidad digital avanzada a la moda circular: aquí puedes verificar exactamente cuántas veces ha sido usada cada prenda, revisar sus especificaciones técnicas de calidad y conectar instantáneamente con vendedores de confianza a través de canales automatizados para una adquisición segura, económica y eco-amigable.</p>
+                </div>
+            </section>
+        </div>
+
+
+        <div id="vista-catalogo" class="page-view">
+            
+            <section class="catalog-selector-section">
+                <h2 class="catalog-title">Explora nuestras prendas disponibles</h2>
+                <div class="products-grid">
+                    
+                    <div class="product-card-thumb active" data-id="1" onclick="cambiarPrenda(1)">
+                        <img src="./img1.jpeg" alt="Blusa Marrón" class="thumb-img">
+                        <div class="thumb-title">Blusa Marrón Manga Larga</div>
+                        <div id="thumb-price-1" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="15" onclick="cambiarPrenda(15)">
+                        <img src="./img15.jpeg" alt="Blusa Negra" class="thumb-img">
+                        <div class="thumb-title">Blusa Negra Manga Larga</div>
+                        <div id="thumb-price-15" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="14" onclick="cambiarPrenda(14)">
+                        <img src="./img14.jpeg" alt="Navy Swimwear Set" class="thumb-img">
+                        <div class="thumb-title">Navy Swimwear Set</div>
+                        <div id="thumb-price-14" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="13" onclick="cambiarPrenda(13)">
+                        <img src="./img13.jpeg" alt="Camiseta Básica Beige" class="thumb-img">
+                        <div class="thumb-title">Camiseta Básica Beige</div>
+                        <div id="thumb-price-13" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="12" onclick="cambiarPrenda(12)">
+                        <img src="./img12.jpeg" alt="Blue-Black Polo" class="thumb-img">
+                        <div class="thumb-title">Blue-Black Polo Style</div>
+                        <div id="thumb-price-12" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="7" onclick="cambiarPrenda(7)">
+                        <img src="./img7.jpeg" alt="Camisa Lino Crudo" class="thumb-img">
+                        <div class="thumb-title">Camisa Lino Crudo</div>
+                        <div id="thumb-price-7" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="3" onclick="cambiarPrenda(3)">
+                        <img src="./img3.jpeg" alt="Green-Black Polo" class="thumb-img">
+                        <div class="thumb-title">Green-Black Polo Style</div>
+                        <div id="thumb-price-3" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="4" onclick="cambiarPrenda(4)">
+                        <img src="./img4.jpeg" alt="Camisa Tartán Verde" class="thumb-img">
+                        <div class="thumb-title">Camisa Tartán Verde</div>
+                        <div id="thumb-price-4" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="5" onclick="cambiarPrenda(5)">
+                        <img src="./img5.jpeg" alt="Camisa Cuadros Bosque" class="thumb-img">
+                        <div class="thumb-title">Camisa Cuadros Bosque</div>
+                        <div id="thumb-price-5" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="6" onclick="cambiarPrenda(6)">
+                        <img src="./img6.jpeg" alt="Casaca Safari Lino" class="thumb-img">
+                        <div class="thumb-title">Casaca Safari Lino</div>
+                        <div id="thumb-price-6" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="8" onclick="cambiarPrenda(8)">
+                        <img src="./img8.jpeg" alt="Camisa Franela Otoño" class="thumb-img">
+                        <div class="thumb-title">Camisa Franela Otoño</div>
+                        <div id="thumb-price-8" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="9" onclick="cambiarPrenda(9)">
+                        <img src="./img9.jpeg" alt="Casaca Cuero Vintage" class="thumb-img">
+                        <div class="thumb-title">Casaca Cuero Vintage</div>
+                        <div id="thumb-price-9" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="10" onclick="cambiarPrenda(10)">
+                        <img src="./img10.jpeg" alt="Casaca Cuero Rockera" class="thumb-img">
+                        <div class="thumb-title">Casaca Cuero Rockera</div>
+                        <div id="thumb-price-10" class="thumb-price">S/. 7.99</div>
+                    </div>
+
+                    <div class="product-card-thumb" data-id="11" onclick="cambiarPrenda(11)">
+                        <img src="./img11.jpeg" alt="Polera Polo Sunset" class="thumb-img">
+                        <div class="thumb-title">Polera Polo Sunset</div>
+                        <div id="thumb-price-11" class="thumb-price">S/. 15.00</div>
+                    </div>
+
+                </div>
+            </section>
+
+            <div class="marketplace-container">
+                <section class="product-gallery">
+                    <img id="main-product-image" src="./img1.jpeg" alt="Prenda Seleccionada" class="product-image">
+                </section>
+
+                <section class="product-panel">
+                    <h1 id="product-title" class="product-title">Blusa Marrón de Manga Larga - Cuello Cuadrado</h1>
+                    <div id="product-price" class="price">S/. 15.00</div>
+                    
+                    <div class="divider"></div>
+
+                    <h2 class="section-subtitle">Detalles</h2>
+                    <ul class="specs-list">
+                        <li><strong>Uso:</strong> <span id="spec-uso">Menos de 10</span></li>
+                        <li><strong>Talla:</strong> <span id="spec-talla">S</span></li>
+                        <li><strong>Color:</strong> <span id="spec-color">Marrón</span></li>
+                        <li><strong>Estado:</strong> <span id="spec-estado">Excelente estado</span></li>
+                    </ul>
+
+                    <div class="divider"></div>
+
+                    <h2 class="section-subtitle">Descripción del vendedor</h2>
+                    <p id="product-description" class="description">
+                        Prenda exclusiva diseñada bajo altos estándares de comodidad y durabilidad. Ajuste cómodo, textil suave y estilizado ideal para cualquier occasion casual.
+                    </p>
+
+                    <button class="btn-buy" onclick="enviarMensajeVendedor()">
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle;">
+                            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.69-4.98c-.202-.101-1.194-.588-1.371-.653-.177-.066-.307-.1-.437.1-.13.2-.505.653-.619.78-.114.128-.228.144-.43.042-.202-.101-.853-.314-1.624-.992-.6-.536-1.006-1.199-1.124-1.401-.118-.202-.012-.311.089-.41.092-.09.202-.236.303-.354.101-.117.135-.198.202-.331.067-.132.033-.248-.017-.35-.05-.101-.437-1.052-.599-1.442-.158-.383-.314-.332-.43-.332-.114-.002-.245-.002-.376-.002-.132 0-.347.05-.528.248-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.194-.488 1.362-1.06.168-.573.168-1.064.118-1.167-.05-.101-.182-.152-.384-.253z"></path>
+                        </svg>
+                        Contactar al vendedor por WhatsApp
+                    </button>
+                </section>
+            </div>
+
+        </div>
+
+        <div id="vista-alianzas" class="page-view">
+            <section class="alliances-section">
+                <div class="about-card">
+                    <h2>Alianzas Estratégicas</h2>
+                    <p>En TechNova desarrollamos soluciones tecnológicas modernas que ayudan a personas y empresas a adaptarse a un mundo en constante evolución. Nuestro compromiso es ofrecer innovación, calidad y confiabilidad en cada proyecto, creando herramientas digitales que impulsan el crecimiento y simplifican los desafíos del día a día.</p>
+                    
+                    <div class="alliances-grid">
+                        <div class="alliance-card">
+                            <div class="alliance-icon">JS</div>
+                            <h3>Julu’s Store</h3>
+                            <p>Socio estratégico comercial oficial. Colaborando activamente para impulsar alternativas de consumo consciente y circular dentro del mercado de moda.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <div class="chat-widget">
+        <div class="chat-container" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="bot-avatar">T</div>
+                    <div class="bot-status-info">
+                        <h2>Asistente TechNova AI</h2>
+                        <p>En línea • Información de Prendas &amp; Vendedores</p>
+                    </div>
+                </div>
+                <button class="close-chat-btn" onclick="toggleChat()">✕</button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    ¡Hola! Bienvenido a TechNova. 🌿 ¿En qué te puedo ayudar hoy? Pregúntame sobre el uso, dueño o precio de cualquier prenda del catálogo. ¡Estoy para ayudarte!
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" class="chat-input" placeholder="Pregunta por una prenda o vendedor..." onkeypress="evaluarEnter(event)">
+                <button class="btn-send" onclick="enviarMensajeChatbot()">Enviar</button>
+            </div>
+        </div>
+
+        <div class="chat-button" onclick="toggleChat()">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.145 2 11.258c0 2.914 1.448 5.518 3.717 7.205V22l3.359-1.844c.89.246 1.834.383 2.811.383 5.523 0 10-4.146 10-9.258C22 6.145 17.523 2 12 2zm1.03 12.96-2.122-2.262-4.137 2.262 4.548-4.828 2.166 2.262 4.093-2.262-4.548 4.828z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de navegación interna (Menú)
+        function navegarA(seccion) {
+            document.getElementById('vista-inicio').classList.remove('active');
+            document.getElementById('vista-catalogo').classList.remove('active');
+            document.getElementById('vista-alianzas').classList.remove('active');
+            
+            document.getElementById('nav-inicio').classList.remove('active');
+            document.getElementById('nav-catalogo').classList.remove('active');
+            document.getElementById('nav-alianzas').classList.remove('active');
+
+            if (seccion === 'inicio') {
+                document.getElementById('vista-inicio').classList.add('active');
+                document.getElementById('nav-inicio').classList.add('active');
+                window.scrollTo(0,0);
+            } else if (seccion === 'catalogo') {
+                document.getElementById('vista-catalogo').classList.add('active');
+                document.getElementById('nav-catalogo').classList.add('active');
+                window.scrollTo(0,0);
+                cambiarPrenda(idPrendaSeleccionada || 1);
+            } else if (seccion === 'alianzas') {
+                document.getElementById('vista-alianzas').classList.add('active');
+                document.getElementById('nav-alianzas').classList.add('active');
+                window.scrollTo(0,0);
+            }
+        }
+
+        // Lista de vendedores reales asignados a las prendas
+        const listaVendedores = ["Luhana", "Juancho", "Matías", "Pedro", "Isabela", "Santiago", "Joshua"];
+        
+        // Variable global para rastrear el ID de la prenda actualmente vista
+        let idPrendaSeleccionada = 1;
+
+        // Base de datos de prendas corregida con las imágenes correctas de acuerdo a las fotos entregadas
+        const prendas = {
+            1: {
+                titulo: "Blusa Marrón de Manga Larga - Cuello Cuadrado",
+                imagen: "img1.jpeg",
+                uso: 1, 
+                talla: "S", color: "Marrón Chocolate", estado: "Excelente estado",
+                vendedor: "Luhana",
+                descripcion: "Prenda exclusiva diseñada bajo altos estándares de comodidad y durabilidad. Ajuste cómodo, textil suave y estilizado ideal para cualquier ocasión casual."
+            },
+            15: {
+                titulo: "Blusa Negra de Manga Larga - Cuello Cuadrado",
+                imagen: "img15.jpeg",
+                uso: 1, 
+                talla: "S", color: "Negro Mate", estado: "Excelente estado",
+                vendedor: "Luhana",
+                descripcion: "Blusa clásica de manga larga con elegante cuello cuadrado que estiliza la figura. Textura suave, cómoda e ideal tanto para looks casuales como de oficina."
+            },
+            14: {
+                titulo: "Navy Swimwear Set - Classic & Tailored Two Pieces",
+                imagen: "img14.jpeg",
+                uso: 4, 
+                talla: "L", color: "Azul Marino", estado: "Buen estado",
+                vendedor: "Isabela",
+                descripcion: "Set versátil de dos piezas premium en azul marino. Traje de baño de una pieza con tirantes finos complementado con short deportivo ajustable."
+            },
+            13: {
+                titulo: "Camiseta Básica de Algodón Orgánico",
+                imagen: "img13.jpeg",
+                uso: 1, 
+                talla: "XL", color: "Beige Claro", estado: "Impecable",
+                vendedor: "Joshua",
+                descripcion: "Un básico indispensable para el día a día. Confeccionada con algodón suave y ligero, ideal para un look casual y fresco."
+            },
+            12: {
+                titulo: "Blue-Black Polo-Style Short Sleeve",
+                imagen: "img12.jpeg",
+                uso: 3, 
+                talla: "S", color: "Azul Eléctrico con detalles negros", estado: "Excelente estado",
+                vendedor: "Santiago",
+                descripcion: "Polo de manga corta deportivo y fresco. Base azul profundo rematada con un elegante cuello negro perfecto para días dinámicos al aire libre."
+            },
+            7: {
+                titulo: "Camisa de Lino Premium Estilizada",
+                imagen: "img7.jpeg",
+                uso: 2, 
+                talla: "M", color: "Arena / Beige", estado: "Perfectas condiciones",
+                vendedor: "Matías",
+                descripcion: "Prenda sofisticada y transpirable. El lino ofrece una caída elegante, perfecta tanto para eventos semi-formales de día como para la playa."
+            },
+            3: {
+                titulo: "Green-Black Polo-Style Long Sleeve",
+                imagen: "img3.jpeg",
+                uso: 1, 
+                talla: "XL", color: "Verde con detalles negros", estado: "Impecable",
+                vendedor: "Matías",
+                descripcion: "Polo manga larga con bloque de color verde bosque vibrante y contrastes negros estructurados en cuello y puños. Estilo urbano atemporal."
+            },
+            4: {
+                titulo: "Camisa Casual con Patrón Tartán",
+                imagen: "img4.jpeg",
+                uso: 4, 
+                talla: "L", color: "Verde e Interior Ocre", estado: "Buen estado",
+                vendedor: "Pedro",
+                descripcion: "Camisa de manga larga perfecta para climas templados. Su patrón clásico de cuadros combina tonos perfectos para salidas casuales o de campo."
+            },
+            5: {
+                titulo: "Camisa Leñadora de Franela Bosque",
+                imagen: "img5.jpeg",
+                uso: 1, 
+                talla: "M", color: "Verde Azulado y Amarillo", estado: "Como nueva",
+                vendedor: "Juancho",
+                descripcion: "Camisa de textura suave y abrigadora. Su diseño de cuadros definidos le dará un toque rústico y moderno a tus outfits de fin de semana."
+            },
+            6: {
+                titulo: "Casaca Ligera Estilo Safari",
+                imagen: "img6.jpeg",
+                uso: 3, 
+                talla: "S", color: "Crudo / Lino", estado: "Excelente estado",
+                vendedor: "Luhana",
+                descripcion: "Casaca tipo sobretodo ligera con amplios bolsillos frontales. Ideal como tercera prenda en días de primavera o atardeceres frescos."
+            },
+            8: {
+                titulo: "Camisa Estilo Country de Otoño",
+                imagen: "img8.jpeg",
+                uso: 4, 
+                talla: "L", color: "Marrón Terracota y Oliva", estado: "Muy conservada",
+                vendedor: "Pedro",
+                descripcion: "Ideal para usar abierta sobre un bividí o cerrada. Los tonos cálidos otoñales se adaptan de forma óptima a pantalones denim o gabardinas."
+            },
+            9: {
+                titulo: "Casaca de Cuero Biker Original Vintage",
+                imagen: "img9.jpeg",
+                uso: 1, 
+                talla: "L", color: "Negro Mate", estado: "Excelente cuero estructurado",
+                vendedor: "Joshua",
+                descripcion: "Una joya urbana indestructible. Esta casaca biker cuenta con cierres reforzados, solapas clásicas y un calce imponente que nunca pasa de moda."
+            },
+            10: {
+                titulo: "Casaca Biker de Cuero Rojo Carmín",
+                imagen: "img10.jpeg",
+                uso: 3, 
+                talla: "M", color: "Rojo Oscuro / Guinda", estado: "Excelente estado",
+                vendedor: "Isabela",
+                descripcion: "Haz relucir tu estilo con esta espectacular casaca de cuero en tono vino/rojo oscuro. Detalles metálicos pulidos y correa ajustable en cintura."
+            },
+            11: {
+                titulo: "Camiseta Tipo Polo Clásica Piqué",
+                imagen: "img11.jpeg",
+                uso: 2, 
+                talla: "S", color: "Naranja Sunset", estado: "Excelente color",
+                vendedor: "Santiago",
+                descripcion: "Polo clásico con cuello formal y dos botones. Su tonalidad naranja vibrante resalta manteniendo la sobriedad del corte clásico."
+            }
+        };
+
+        // Lógica de Precios Estructurados según el uso especificado
+        function obtenerPrecioPorUso(prenda) {
+            if (prenda.uso < 2) {
+                return "S/. 15.00";
+            } else if (prenda.uso >= 3 && prenda.uso <= 4) {
+                return "S/. 7.99";
+            }
+            return "S/. 15.00";
+        }
+
+        function inicializarPreciosCatalogo() {
+            for (let id in prendas) {
+                const precioElemento = document.getElementById(`thumb-price-${id}`);
+                if (precioElemento) {
+                    precioElemento.innerText = obtenerPrecioPorUso(prendas[id]);
+                }
+            }
+            cambiarPrenda(1);
+        }
+
+        function cambiarPrenda(id) {
+            idPrendaSeleccionada = id;
+            const prenda = prendas[id];
+            if (!prenda) return;
+
+            const precioFinal = obtenerPrecioPorUso(prenda);
+
+            document.getElementById('main-product-image').src = "./" + prenda.imagen;
+            document.getElementById('product-title').innerText = prenda.titulo;
+            document.getElementById('product-price').innerText = precioFinal;
+            
+            document.getElementById('spec-uso').innerText = prenda.uso + (prenda.uso === 1 ? " uso" : " usos");
+            document.getElementById('spec-talla').innerText = prenda.talla;
+            document.getElementById('spec-color').innerText = prenda.color;
+            document.getElementById('spec-estado').innerText = prenda.estado;
+            document.getElementById('product-description').innerText = prenda.descripcion + " (Vendedor/a: " + prenda.vendedor + ")";
+
+            const tarjetas = document.querySelectorAll('.product-card-thumb');
+            tarjetas.forEach((tarjeta) => {
+                if (parseInt(tarjeta.getAttribute('data-id')) === id) {
+                    tarjeta.classList.add('active');
+                } else {
+                    tarjeta.classList.remove('active');
+                }
+            });
+        }
+
+        // Redirección Dinámica a WhatsApp según el vendedor
+        function enviarMensajeVendedor() {
+            const prenda = prendas[idPrendaSeleccionada];
+            if (!prenda) return;
+
+            const precio = obtenerPrecioPorUso(prenda);
+            let numeroTelefono = "";
+            
+            if (prenda.vendedor.toLowerCase() === "juancho") {
+                numeroTelefono = "51933986356";
+            } else if (prenda.vendedor.toLowerCase() === "pedro") {
+                numeroTelefono = "51964489082";
+            } else {
+                numeroTelefono = "51933986356"; 
+            }
+
+            const mensajeOriginal = `¡Hola ${prenda.vendedor}! Estoy interesado en adquirir tu prenda en TechNova: "${prenda.titulo}" (Talla: ${prenda.talla}, Precio: ${precio}). ¿Sigue disponible?`;
+            const mensajeCodificado = encodeURIComponent(mensajeOriginal);
+            
+            window.open(`https://api.whatsapp.com/send?phone=${numeroTelefono}&text=${mensajeCodificado}`, '_blank');
+        }
+
+        // --- LÓGICA INTERACTIVA DEL CHATBOT EXPERTO EN PRENDAS ---
+        const chatWindow = document.getElementById('chatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+
+        function toggleChat() {
+            chatWindow.classList.toggle('open');
+        }
+
+        function enviarMensajeChatbot() {
+            const texto = userInput.value.trim();
+            if (texto === '') return;
+
+            agregarBurbuja(texto, 'user');
+            userInput.value = '';
+
+            setTimeout(() => {
+                const respuestaBot = procesarPreguntaPrendas(texto);
+                agregarBurbuja(respuestaBot, 'bot');
+            }, 400);
+        }
+
+        function evaluarEnter(event) {
+            if (event.key === 'Enter') {
+                enviarMensajeChatbot();
+            }
+        }
+
+        function agregarBurbuja(texto, remitente) {
+            const div = document.createElement('div');
+            div.classList.add('message', remitente);
+            div.innerText = texto;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function procesarPreguntaPrendas(mensaje) {
+            const msgNormalizado = mensaje.trim().toLowerCase();
+
+            // REGLAS ESPECIALES INTACTAS
+            if (msgNormalizado === 'juancho y luhana') {
+                return "MIS PAPIS";
+            }
+            if (msgNormalizado === 'j+l') {
+                return "ellos se aman 67 millones de veces";
+            }
+
+            if (msgNormalizado.includes('hola') || msgNormalizado.includes('buenas')) {
+                return "¡Hola! ¿De qué prenda te gustaría conocer el precio, uso o quién es su vendedor?";
+            }
+
+            // Búsqueda prioritaria por vendedor
+            for (let vendedor of listaVendedores) {
+                if (msgNormalizado.includes(vendedor.toLowerCase())) {
+                    let prendasDeVendedor = [];
+                    for (let id in prendas) {
+                        if (prendas[id].vendedor.toLowerCase() === vendedor.toLowerCase()) {
+                            prendasDeVendedor.push(`• ${prendas[id].titulo} (${prendas[id].uso} uso(s) - ${obtenerPrecioPorUso(prendas[id])})`);
+                        }
+                    }
+                    if (prendasDeVendedor.length > 0) {
+                        return `👕 Las prendas publicadas por ${vendedor} son:\n${prendasDeVendedor.join('\n')}`;
+                    } else {
+                        return `Actualmente ${vendedor} no tiene prendas activas en el catálogo.`;
+                    }
+                }
+            }
+
+            // RECONOCIMIENTO AVANZADO DE PRENDAS (MEJORADO)
+            const conectoresBasura = ['de', 'con', 'el', 'la', 'los', 'las', 'un', 'una', 'en', 'para', 'que', 'por'];
+            const palabrasUsuario = msgNormalizado.split(/\s+/)
+                .filter(p => p.length > 1 && !conectoresBasura.includes(p));
+
+            let prendasEncontradas = [];
+
+            if (palabrasUsuario.length > 0) {
+                for (let id in prendas) {
+                    const p = prendas[id];
+                    const tituloBajo = p.titulo.toLowerCase();
+                    const colorBajo = p.color.toLowerCase();
+                    const descBajo = p.descripcion.toLowerCase();
+
+                    let coincidencias = 0;
+                    for (let palabra of palabrasUsuario) {
+                        if (tituloBajo.includes(palabra) || colorBajo.includes(palabra) || descBajo.includes(palabra)) {
+                            coincidencias++;
+                        }
+                    }
+
+                    if (coincidencias > 0) {
+                        prendasEncontradas.push({
+                            texto: `✨ ${p.titulo}: Usado por ${p.vendedor}, tiene ${p.uso} uso(s) y su precio es de ${obtenerPrecioPorUso(p)}.`,
+                            puntos: coincidencias
+                        });
+                    }
+                }
+            }
+
+            if (prendasEncontradas.length > 0) {
+                prendasEncontradas.sort((a, b) => b.puntos - a.puntos);
+                return prendasEncontradas.slice(0, 3).map(item => item.texto).join('\n\n');
+            }
+
+            if (msgNormalizado.includes('precio') || msgNormalizado.includes('cuanto cuesta') || msgNormalizado.includes('costo')) {
+                return "Te comento que las prendas con menos de 2 usos cuestan S/. 15.00, y las que registran entre 3 y 4 usos tienen un costo de S/. 7.99.";
+            }
+
+            if (msgNormalizado.includes('vendedor') || msgNormalizado.includes('quien lo uso') || msgNormalizado.includes('dueño')) {
+                return "Nuestras prendas son de vendedores de confianza como Luhana, Juancho, Matías, Pedro, Isabela, Santiago o Joshua. Dime qué prenda te interesa para darte el nombre exacto.";
+            }
+
+            return "No logré identificar la prenda o vendedor. Prueba escribiendo algo como 'Polo rojo', 'blusa marrón', 'casaca lino' o preguntando por un vendedor como 'Juancho' o 'Luhana'.";
+        }
+
+        window.onload = function() {
+            inicializarPreciosCatalogo();
+        };
+    </script>
+
+</body>
+</html>
